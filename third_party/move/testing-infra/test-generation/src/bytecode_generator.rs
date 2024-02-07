@@ -421,10 +421,8 @@ impl<'a> BytecodeGenerator<'a> {
                     Some(instruction(self.rng.gen_range(0..u128::max_value())))
                 },
                 BytecodeType::U256(instruction) => {
-                    // Generate a random u256 constant to load
-                    Some(instruction(
-                        self.rng.gen_range(U256::zero()..U256::max_value()),
-                    ))
+                    // TODO: restore randomness
+                    Some(instruction(U256::zero()))
                 },
                 BytecodeType::ConstantPoolIndex(instruction) => {
                     // Select a random address from the module's address pool

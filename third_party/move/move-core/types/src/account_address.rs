@@ -4,7 +4,6 @@
 
 use hex::FromHex;
 use num::BigUint;
-use rand::{rngs::OsRng, Rng};
 use serde::{de::Error as _, Deserialize, Deserializer, Serialize, Serializer};
 use std::{convert::TryFrom, fmt, str::FromStr};
 
@@ -42,9 +41,8 @@ impl AccountAddress {
     }
 
     pub fn random() -> Self {
-        let mut rng = OsRng;
-        let buf: [u8; Self::LENGTH] = rng.gen();
-        Self(buf)
+        // TODO: some generic randomness interface
+        Self::ZERO
     }
 
     /// Represent an account address in a way that is compliant with the v1 address
