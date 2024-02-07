@@ -9906,7 +9906,6 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "difference",
- "dirs-next",
  "hex",
  "move-core-types",
  "num-bigint 0.4.3",
