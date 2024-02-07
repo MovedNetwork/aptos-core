@@ -383,8 +383,6 @@ impl Loader {
     // Script verification steps.
     // See `verify_module()` for module verification steps.
     fn verify_script(&self, script: &CompiledScript) -> VMResult<()> {
-        fail::fail_point!("verifier-failpoint-3", |_| { Ok(()) });
-
         move_bytecode_verifier::verify_script_with_config(&self.vm_config.verifier, script)
     }
 
@@ -627,8 +625,6 @@ impl Loader {
         data_store: &mut TransactionDataCache,
         module_store: &ModuleStorageAdapter,
     ) -> VMResult<()> {
-        fail::fail_point!("verifier-failpoint-1", |_| { Ok(()) });
-
         let mut bundle_unverified: BTreeSet<_> = modules.iter().map(|m| m.self_id()).collect();
         let mut bundle_verified = BTreeMap::new();
         for module in modules {
@@ -1016,8 +1012,6 @@ impl Loader {
         let (module, size, hash_value) =
             data_store.load_compiled_module_to_cache(id.clone(), allow_loading_failure)?;
 
-        fail::fail_point!("verifier-failpoint-2", |_| { Ok((module.clone(), size)) });
-
         if self.vm_config.paranoid_type_checks && &module.self_id() != id {
             return Err(
                 PartialVMError::new(StatusCode::UNKNOWN_INVARIANT_VIOLATION_ERROR)
@@ -1127,8 +1121,6 @@ impl Loader {
         let all_imm_deps = bundle_deps
             .into_iter()
             .chain(cached_deps.iter().map(|m| m.module()));
-
-        fail::fail_point!("verifier-failpoint-4", |_| { Ok(()) });
 
         let result = dependencies::verify_module(module, all_imm_deps);
 

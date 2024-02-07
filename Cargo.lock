@@ -10258,7 +10258,7 @@ dependencies = [
 name = "move-bytecode-verifier"
 version = "0.1.0"
 dependencies = [
- "fail 0.4.0",
+ "anyhow",
  "hex-literal",
  "invalid-mutations",
  "move-binary-format",
@@ -10993,7 +10993,6 @@ dependencies = [
  "anyhow",
  "better_any",
  "bytes",
- "fail 0.4.0",
  "hashbrown 0.14.3",
  "hex",
  "lazy_static",

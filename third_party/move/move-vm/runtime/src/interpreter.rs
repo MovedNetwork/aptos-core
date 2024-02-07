@@ -10,7 +10,6 @@ use crate::{
     native_functions::NativeContext,
     trace,
 };
-use fail::fail_point;
 use move_binary_format::{
     errors::*,
     file_format::{
@@ -1995,14 +1994,6 @@ impl Frame {
                     resolver,
                     interpreter
                 );
-
-                fail_point!("move_vm::interpreter_loop", |_| {
-                    Err(
-                        PartialVMError::new(StatusCode::VERIFIER_INVARIANT_VIOLATION).with_message(
-                            "Injected move_vm::interpreter verifier failure".to_owned(),
-                        ),
-                    )
-                });
 
                 // Paranoid Mode: Perform the type stack transition check to make sure all type safety requirements has been met.
                 //
