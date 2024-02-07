@@ -29,7 +29,6 @@ use std::{
     io::{Read, Write},
     path::{Path, PathBuf},
 };
-use tempfile::NamedTempFile;
 
 //**************************************************************************************************
 // Definitions
@@ -711,16 +710,32 @@ pub fn generate_interface_files(
 
         std::fs::create_dir_all(&addr_dir)?;
 
-        let mut tmp = NamedTempFile::new_in(addr_dir)?;
+        let tmp_path = file_path.with_extension("tmp");
+        let mut tmp = match std::fs::File::options()
+            .write(true)
+            .create_new(true)
+            .open(&tmp_path)
+        {
+            Ok(f) => f,
+            Err(e) => {
+                // it's possible some files exist but not others due to multithreaded environments
+                if let std::io::ErrorKind::AlreadyExists = e.kind() {
+                    continue;
+                }
+                return Err(e.into());
+            }
+        };
         tmp.write_all(interface_contents.as_bytes())?;
+        drop(tmp);
 
         // it's possible some files exist but not others due to multithreaded environments
         // Check for the file existing and then safely move the tmp file there if
         // it does not
         if separate_by_hash && Path::new(&file_path).is_file() {
+            std::fs::remove_file(tmp_path)?;
             continue;
         }
-        std::fs::rename(tmp.path(), file_path)?;
+        std::fs::rename(tmp_path, file_path)?;
     }
 
     Ok(result)

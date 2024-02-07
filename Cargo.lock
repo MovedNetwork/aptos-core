@@ -10365,7 +10365,6 @@ dependencies = [
  "petgraph 0.5.1",
  "regex",
  "sha3 0.9.1",
- "tempfile",
 ]
 
 [[package]]
