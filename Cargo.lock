@@ -10438,7 +10438,6 @@ dependencies = [
  "primitive-types 0.10.1",
  "proptest",
  "proptest-derive 0.3.0",
- "rand 0.8.5",
  "ref-cast",
  "regex",
  "serde",
