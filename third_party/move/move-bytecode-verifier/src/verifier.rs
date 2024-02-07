@@ -18,7 +18,6 @@ use move_binary_format::{
 };
 use move_core_types::{state::VMState, vm_status::StatusCode};
 use serde::Serialize;
-use std::time::Instant;
 
 #[derive(Debug, Clone, Serialize)]
 pub struct VerifierConfig {
@@ -64,12 +63,11 @@ pub fn verify_module_with_config_for_test(
     const MAX_MODULE_SIZE: usize = 65355;
     let mut bytes = vec![];
     module.serialize(&mut bytes).unwrap();
-    let now = Instant::now();
     let result = verify_module_with_config(config, module);
     eprintln!(
         "--> {}: verification time: {:.3}ms, result: {}, size: {}kb",
         name,
-        (now.elapsed().as_micros() as f64) / 1000.0,
+        0.0,
         if let Err(e) = &result {
             format!("{:?}", e.major_status())
         } else {
