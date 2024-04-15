@@ -21,6 +21,7 @@ move-core-types = { path = "../move-core/types" }
 move-docgen = { path = "../move-prover/move-docgen" }
 move-errmapgen = { path = "../move-prover/move-errmapgen" }
 move-prover = { path = "../move-prover" }
+move-stdlib-defs = { path = "../move-stdlib-defs" }
 move-vm-runtime = { path = "../move-vm/runtime" }
 move-vm-types = { path = "../move-vm/types" }
 sha2 = "0.9.3"

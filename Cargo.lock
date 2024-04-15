@@ -10439,6 +10439,7 @@ dependencies = [
  "move-errmapgen",
  "move-package",
  "move-prover",
+ "move-stdlib-defs",
  "move-unit-test",
  "move-vm-runtime",
  "move-vm-types",
@@ -10447,6 +10448,17 @@ dependencies = [
  "smallvec",
  "tempfile",
  "walkdir",
+]
+
+[[package]]
+name = "move-stdlib-defs"
+version = "0.1.1"
+dependencies = [
+ "move-binary-format",
+ "move-core-types",
+ "move-vm-runtime",
+ "move-vm-types",
+ "smallvec",
 ]
 
 [[package]]
